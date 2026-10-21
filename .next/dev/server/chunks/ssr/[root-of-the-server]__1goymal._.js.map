@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 10, "column": 0}, "map": {"version":3,"sources":["file:///C:/%EB%8C%80%ED%95%99/React2/src/app/page.tsx"],"sourcesContent":["export default function Page() {\r\n  return (\r\n    <div>\r\n      <h1>Welcome to the Page</h1>\r\n        <p>This is a sample page content.</p>\r\n    </div>\r\n  );\r\n}"],"names":["Page"],"mappings":";;;;;;AAAe,SAASA;IACtB,qBACE,8OAAC;;0BACC,8OAAC;0BAAG;;;;;;0BACF,8OAAC;0BAAE;;;;;;;;;;;;AAGX"}}]
-}
