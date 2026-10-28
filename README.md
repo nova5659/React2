@@ -6,6 +6,49 @@ React2 수업 내용과 실습 기록입니다. 최신 수업부터 역순으로
 
 ---
 
+## 8주차 (2026-10-28)
+
+### 1. `nextjs26` 프로젝트 생성 및 실습 환경 구성
+* **프로젝트 생성**: Next.js 16 (App Router, TypeScript, Tailwind CSS, pnpm) 기반 `nextjs26` 프로젝트 초기화
+* **브랜치 운영**: 챕터별 실습 분리를 위한 `ch06` 브랜치 실습
+
+---
+
+### 2. Client Component 기본 실습 (`Counter.tsx`)
+* **목적**: 최상단 `'use client'` 선언을 통해 브라우저 이벤트 핸들링 및 상태 관리 구현
+* **컴포넌트 위치**: `src/components/Counter.tsx`
+* **페이지 라우트 연결**: `src/app/counter/page.tsx`에서 `Counter` 컴포넌트를 import하여 렌더링
+* **동작 원리**: 서버에서 정적 HTML 1차 전달 후, 클라이언트 Hydration을 통해 버튼 클릭 이벤트 바인딩 및 상태 갱신
+
+---
+
+### 3. 낙관적 업데이트(Optimistic Update) 컴포넌트 (`LikeButton.tsx`)
+* **목적**: 서버 응답 완료 전 화면의 좋아요 숫자를 먼저 증가시켜 지연 없는 사용자 경험(UX) 제공
+* **컴포넌트 위치**: `src/ui/LikeButton.tsx`
+* **핵심 상태 관리**:
+  * `count`: 화면에 표시될 좋아요 숫자 (초기값: `likes ?? 0`)
+  * `isLiking`: 서버 요청 처리 중 상태 플래그 (중복 클릭 방지 `disabled={isLiking}`, 웹 접근성 `aria-pressed`)
+* **비동기 처리 시뮬레이션**: `setTimeout(() => setIsLiking(false), 300)`을 통해 처리 완료 후 버튼 활성화
+
+---
+
+### 4. 동적 슬러그 라우팅 및 데이터 연동 (`[id]/page.tsx` & `data.tsx`)
+* **컴포넌트 위치**: `src/app/[id]/page.tsx`, `src/lib/data.tsx`
+* **Next.js 15 비동기 params 처리**: `const { id } = await params;`로 동적 세그먼트 언래핑
+* **데이터 조회 및 Props 전달**: `posts.find((p) => p.id === id)`로 일치하는 게시물 데이터를 찾아 `<LikeButton likes={post.likes} />`로 전달
+
+---
+
+### 5. 공통 루트 레이아웃 네비게이션 (`layout.tsx`)
+* **컴포넌트 위치**: `src/app/layout.tsx`
+* **헤더 및 메뉴 구성**:
+  * `=== Root Layout Header ===` / `=== Root Layout Footer ===` 공통 서식
+  * 기본 네비게이션: `Home` (`/`), `Counter` (`/counter`)
+  * 슬러그 메뉴: `nextjs` (`/nextjs`), `routing` (`/routing`), `ssr-sge` (`/ssr-ssg`), `dynamic-routes` (`/dynamic-routes`)
+* **Shared Layout 지속성**: 페이지 간 이동 시 상단 헤더와 메뉴 UI는 다시 마운트되지 않고 유지되며 본문(`main`)만 클라이언트 사이드 전환으로 교체
+
+---
+
 ## 7주차 (2026-10-14)
 
 ### 1. Server Component와 Client Component 선택 기준
